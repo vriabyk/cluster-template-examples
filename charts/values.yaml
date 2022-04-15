@@ -13,9 +13,9 @@ cluster:
 cloudCredentialSecretName: ""
 
 # specify cloud provider, options are amazonec2, digitalocean, azure, vsphere or custom
-cloudprovider: "digitalocean"
+cloudprovider: "custom"
 
-kubernetesVersion: ""
+kubernetesVersion: "v1.22.6+rke2r1"
 
 # general RKE options
 rke:
@@ -31,10 +31,17 @@ rke:
 # clusterMembers:
 # - principalName: "local://u-z8zl5"
 #   roleTemplateName: "cluster-member"
+  cni: calico
+  upgradeStrategy:
+    controlPlaneDrainOptions:
+      enabled: false
+    workerDrainOptions:
+      enabled: false
+    workerConcurrency: "1"
 
 # enable monitoring
 monitoring:
-  enabled: false
+  enabled: true
   # specify which version to install, can be semver range. If version is empty or is semver range, it will pick up the latest version.
   # version: ""
   # specify cutsom values set
